@@ -5,7 +5,7 @@ These are some scripts and config files to make it easier to compile the fread i
 
 # Compiling
 
-Documentation is available in the readme file for [fread-vagrant](https://github.com/fread-ink/fread-vagrant) and I highly suggest you use that vagrant system rather than trying to install the dependencies directly on your system.
+Documentation is available in the readme file for [fread-vagrant](https://github.com/fread-ink/fread-vagrant) and I highly suggest you use that vagrant system rather than trying to install the dependencies directly.
 
 # Copyright and license
 

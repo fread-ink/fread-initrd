@@ -32,7 +32,7 @@ else
 
   echo "Downloading buildroot..."
 
-  wget $BUILDROOT_URL
+  wget --no-check-certificate $BUILDROOT_URL
 
   if [ "$?" -ne 0 ]; then
     echo "Downloading buildroot failed" >&2
@@ -47,14 +47,14 @@ if [ -d "$BUILDROOT_NAME" ]; then
   echo "If you wish to restart the build process from scratch" >&2
   echo "please move to a different directory or delete the entire" >&2
   echo "${BUILDROOT_NAME} directory but know that this will cause" >&2
-  echo "all of the buildroot toolchain and packages" > &2
-  echo "to be re-downloaded and re-built" > &2
+  echo "all of the buildroot toolchain and packages" >&2
+  echo "to be re-downloaded and re-built" >&2
   exit 1
 fi
 
 echo "Extracting buildroot..."
 
-tar xjf $BUILDROOT_FILE
+tar xjf $BUILDROOT_FILENAME
 
 if [ "$?" -ne 0 ]; then
   echo "Extracting buildroot failed" >&2
@@ -65,7 +65,7 @@ echo "Extraction complete!"
 
 echo "Configuring buildroot..."
 
-cp $BUILDOOR_FILE ${BUILDROOT_NAME}/.config
+cp $BUILDROOT_CONFIG ${BUILDROOT_NAME}/.config
 
 if [ "$?" -ne 0 ]; then
   echo "Configuring buildroot failed" >&2
