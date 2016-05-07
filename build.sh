@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cd buildroot-2016.02/
+BUILDROOT_DIR="buildroot-2016.02"
+
+cd $BUILDROOT_DIR
 
 echo "Compiling buildroot..."
 
@@ -21,18 +23,15 @@ echo ""
 echo "Attempting to add the fread init file to buildroot initrd..."
 
 set -e
-cp output/images/rootfs.cpio /tmp/
-mkdir /tmp/initrd
-export PREVDIR=$PWD
-cd /tmp/initrd/
-cpio -idv < ../rootfs.cpio
-rm ../rootfs.cpio
-rm init
+PREVDIR=$PWD
+cd ${BUILDROOT_DIR}/output/target/
+rm -f init
+rm -f THIS_IS_NOT_YOUR_ROOT_FILESYSTEM
 cp ${PREVDIR}/init ./
 chmod 755 init
-find . -print -depth | cpio -ov > ${PREVDIR}/initrd.cpio
+rm -f ${PREVDIR}/initrd.cpio
+find . | cpio --quiet -o -H newc > ${PREVDIR}/initrd.cpio 
 cd $PREVDIR
-rm -rf /tmp/initrd
 set +e
 
 echo "Success!"
