@@ -36,7 +36,7 @@ rm -rf /tmp/initrd
 set +e
 
 echo "Success!"
-echo "Your initrd is now compiled and reader at:"
+echo "Your initrd is now compiled and ready at:"
 echo "  ${PREVDOR}/initrd.cpio"
 
 
