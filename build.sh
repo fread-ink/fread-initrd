@@ -36,6 +36,6 @@ set +e
 
 echo "Success!"
 echo "Your initrd is now compiled and ready at:"
-echo "  ${PREVDOR}/initrd.cpio"
+echo "  ${PREVDIR}/initrd.cpio"
 
 
