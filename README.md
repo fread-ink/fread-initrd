@@ -1,7 +1,9 @@
 
-WORK IN PROGRESS. NOTHING WORKS YET!
-
 These are some scripts and config files to make it easier to compile the fread initrd (initial ramdisk).
+
+# Pre-built binary
+
+There is a pre-built binary in the `bin/` directory.
 
 # Compiling
 
