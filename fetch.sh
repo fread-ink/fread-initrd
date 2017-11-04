@@ -42,8 +42,8 @@ fi
 
 echo "Downloading complete!"
 
-if [ -d "$BUILDROOT_NAME" ]; then
-  echo "The directory ${BUILDROOT_NAME} already exists." >&2
+if [ -d "${BUILDROOT_NAME}/output" ]; then
+  echo "The directory ${BUILDROOT_NAME}/output already exists." >&2
   echo "If you wish to restart the build process from scratch" >&2
   echo "please move to a different directory or delete the entire" >&2
   echo "${BUILDROOT_NAME} directory but know that this will cause" >&2
@@ -52,16 +52,23 @@ if [ -d "$BUILDROOT_NAME" ]; then
   exit 1
 fi
 
-echo "Extracting buildroot..."
+if [ -d "$BUILDROOT_NAME" ]; then
 
-tar xjf $BUILDROOT_FILENAME
+  echo "Buildroot already extracted"
 
-if [ "$?" -ne 0 ]; then
-  echo "Extracting buildroot failed" >&2
-  exit 1
+else
+
+  echo "Extracting buildroot..."
+
+  tar xjf $BUILDROOT_FILENAME
+
+  if [ "$?" -ne 0 ]; then
+    echo "Extracting buildroot failed" >&2
+    exit 1
+  fi
+
+  echo "Extraction complete!"
 fi
-
-echo "Extraction complete!"
 
 echo "Configuring buildroot..."
 
