@@ -13,6 +13,10 @@ Documentation is available in the readme file for [fread-vagrant](https://github
 
 Unless otherwise stated everything in this repository Copyright 2016 Marc Juul and licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
+# ToDo
+
+* Rename initrd to initramfs since that's what we're actually using
+
 # Disclaimer
 
 Kindle and Lab126 are registered trademarks of Amazon Inc. 
