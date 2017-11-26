@@ -27,8 +27,8 @@ echo "Moving fat32 mount point into fread userland"
 /bin/mount --move /mnt/us /mnt/fread/mnt/us # move mount point
 
 echo "Mounting /proc and /sys"
-mount -t proc proc  /mnt/fread/proc
-mount -t sysfs sysfs /mnt/fread/sys
+/bin/mount -t proc proc  /mnt/fread/proc
+/bin/mount -t sysfs sysfs /mnt/fread/sys
 
 echo "Switching to fread userland"
-exec chroot /mnt/fread /sbin/init 5
+exec /usr/sbin/chroot /mnt/fread /sbin/init 5
