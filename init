@@ -1,3 +1,34 @@
 #!/bin/busybox sh
 
-exec /bin/sh
+echo -n -e "For initramfs shell press [enter] within 3 seconds..."
+read -t 1 && exec /bin/sh
+echo -n -e "\e[0K\rFor initramfs shell press [enter] within 2 seconds..."
+read -t 1 && exec /bin/sh
+echo -n -e "\e[0K\rFor initramfs shell press [enter] within 1 second..."
+read -t 1 && exec /bin/sh || echo
+
+echo "Proceeding with normal bootup"
+
+/bin/mount --make-private / # move mount won't work for shared or slave mounts
+
+# Mount the kindle's fat32 partition so we can access the fread.ext4 file
+echo "Mounting fat32 partition"
+/sbin/losetup -o 8192 /dev/loop/0 /dev/mmcblk0p4 # for some reason we need a 8192 byte offset
+/bin/mkdir -p /mnt/us # ensure mountpoint exists
+/bin/mount -t vfat -o defaults,noatime,utf8,noexec,shortname=mixed /dev/loop/0 /mnt/us
+
+echo "Mounting fread userland"
+/sbin/losetup /dev/loop/1 /mnt/us/fread/fread.ext4
+/bin/mkdir -p /mnt/fread # ensure mountpoint exists
+/bin/mount -t ext4 -o defaults,noatime /dev/loop/1 /mnt/fread
+/bin/mkdir -p /mnt/fread/mnt/us # ensure nested fat32 mountpoint exists
+
+echo "Moving fat32 mount point into fread userland"
+/bin/mount --move /mnt/us /mnt/fread/mnt/us # move mount point
+
+echo "Mounting /proc and /sys"
+mount -t proc proc  /mnt/fread/proc
+mount -t sysfs sysfs /mnt/fread/sys
+
+echo "Switching to fread userland"
+exec chroot /mnt/fread /sbin/init 5
